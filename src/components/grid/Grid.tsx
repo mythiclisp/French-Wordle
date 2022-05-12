@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react'
 import { MAX_CHALLENGES } from '../../constants/settings'
+import { getContextClue } from '../../lib/contextClues'
 import { CompletedRow } from './CompletedRow'
 import { CurrentRow } from './CurrentRow'
 import { EmptyRow } from './EmptyRow'
@@ -23,6 +25,13 @@ export const Grid = ({
       ? Array.from(Array(MAX_CHALLENGES - 1 - guesses.length))
       : []
 
+  const [contextClues, setContextClues] = useState<string[] | null>(null)
+
+  useEffect(() => {
+
+    setContextClues(getContextClue(solution))
+  }, [solution])
+
   return (
     <>
       {guesses.map((guess, i) => (
@@ -34,10 +43,10 @@ export const Grid = ({
         />
       ))}
       {guesses.length < MAX_CHALLENGES && (
-        <CurrentRow guess={currentGuess} className={currentRowClassName} />
+        <CurrentRow guess={currentGuess} className={currentRowClassName} contextClues={contextClues ?? []} />
       )}
       {empties.map((_, i) => (
-        <EmptyRow key={i} />
+        <EmptyRow key={i} solution={solution} contextClues={contextClues ?? []} index={i} guesses={guesses.length} />
       ))}
     </>
   )

@@ -7,12 +7,17 @@ import { default as GraphemeSplitter } from 'grapheme-splitter'
 export const isWordInWordList = (word: string) => {
   return (
     WORDS.includes(localeAwareLowerCase(word)) ||
-    VALID_GUESSES.includes(localeAwareLowerCase(word))
+    VALID_GUESSES.includes(word.toUpperCase())
   )
 }
 
 export const isWinningWord = (word: string) => {
   return solution === word
+}
+
+export const getWinningWord = () => {
+
+  return solution
 }
 
 // build a set of previously revealed letters - present and correct
@@ -75,24 +80,17 @@ export const localeAwareUpperCase = (text: string) => {
 }
 
 export const getWordOfDay = () => {
-  // January 1, 2022 Game Epoch
-  const epoch = new Date(2022, 0)
-  const start = new Date(epoch)
-  const today = new Date()
-  today.setHours(0, 0, 0, 0)
-  let index = 0
-  while (start < today) {
-    index++
-    start.setDate(start.getDate() + 1)
-  }
 
-  const nextDay = new Date(today)
-  nextDay.setDate(today.getDate() + 1)
+  const index = 0
+
+  const randint = Math.floor(Math.random() * ((WORDS.length - 2) - 0) ) + 0;
+
+  console.log(WORDS[randint])
 
   return {
-    solution: localeAwareUpperCase(WORDS[index % WORDS.length]),
+    solution: WORDS[randint].toUpperCase(),
     solutionIndex: index,
-    tomorrow: nextDay.valueOf(),
+    tomorrow: WORDS[randint + 1].toUpperCase(),
   }
 }
 

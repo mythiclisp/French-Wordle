@@ -5,7 +5,6 @@ import { InfoModal } from './components/modals/InfoModal'
 import { StatsModal } from './components/modals/StatsModal'
 import { SettingsModal } from './components/modals/SettingsModal'
 import {
-  WIN_MESSAGES,
   GAME_COPIED_MESSAGE,
   NOT_ENOUGH_LETTERS_MESSAGE,
   WORD_NOT_FOUND_MESSAGE,
@@ -40,6 +39,7 @@ import { AlertContainer } from './components/alerts/AlertContainer'
 import { useAlert } from './context/AlertContext'
 import { Navbar } from './components/navbar/Navbar'
 import { isInAppBrowser } from './lib/browser'
+import { getWinSentece } from './lib/contextClues'
 
 function App() {
   const prefersDarkMode = window.matchMedia(
@@ -154,8 +154,7 @@ function App() {
 
   useEffect(() => {
     if (isGameWon) {
-      const winMessage =
-        WIN_MESSAGES[Math.floor(Math.random() * WIN_MESSAGES.length)]
+      const winMessage = getWinSentece(solution)
       const delayMs = REVEAL_TIME_MS * solution.length
 
       showSuccessAlert(winMessage, {

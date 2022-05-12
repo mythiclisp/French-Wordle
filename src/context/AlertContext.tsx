@@ -50,7 +50,6 @@ export const AlertProvider = ({ children }: Props) => {
         delayMs = 0,
         persist,
         onClose,
-        durationMs = ALERT_TIME_MS,
       } = options || {}
 
       setTimeout(() => {
@@ -64,7 +63,7 @@ export const AlertProvider = ({ children }: Props) => {
             if (onClose) {
               onClose()
             }
-          }, durationMs)
+          }, 15000)
         }
       }, delayMs)
     },

@@ -23,7 +23,10 @@ export const Navbar = ({
           className="h-6 w-6 mr-2 cursor-pointer dark:stroke-white"
           onClick={() => setIsInfoModalOpen(true)}
         />
-        <p className="text-xl ml-2.5 font-bold dark:text-white">{GAME_TITLE}</p>
+        <div className="flex items-center gap-y-3">
+          <p className="text-xl ml-2.5 font-bold dark:text-white">{GAME_TITLE}</p>
+          <img src="/frenchIcon.png" alt="french flag" className="w-5 h-5"/>
+        </div>
         <div className="right-icons">
           <ChartBarIcon
             className="h-6 w-6 mr-3 cursor-pointer dark:stroke-white"
